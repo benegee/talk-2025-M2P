@@ -55,7 +55,7 @@ aspectRatio: 16/9
 canvasWidth: 980
 # used for theme customization, will inject root styles as `--slidev-theme-x` for attribute `x`
 themeConfig:
-  totalSlidesDisplayed: 42
+  totalSlidesDisplayed: 13
 #  primary: '#005176'
 
 # favicon, can be a local file path or URL
@@ -84,9 +84,9 @@ defaults:
 biblio:
   filename: ../common/biblio/literature.bib
   csl_template_file: ../common/biblio/style.json # for ieee
-  template: ieee
+  template: apa
   #numerical_ref: true
-  footnotes: full
+  footnotes: false
 
 # enable MDC Syntax: https://sli.dev/guide/syntax#mdc-syntax
 mdc: true
@@ -125,18 +125,21 @@ layout: cover
 
 # Our product: `Trixi.jl`
 
-- Research framework for conservation laws
+- Research simulation framework for conservation laws
 
 - Adaptive Discontinuous Galerkin spectral element method
 
 - Various meshing backends (e.g. `p4est`, `t8code`)
 
+<v-click>
 <smallskip/>
 
 - ∼20 main developers, ∼75k lines of code
 
 - Focus on extensibility, usability, performance
 
+</v-click>
+<v-click>
 <smallskip/>
 
 - Shared memory and MPI parallelization
@@ -146,6 +149,7 @@ layout: cover
 <smallskip/>
 
 - [`github.com/trixi-framework/Trixi.jl`](https://github.com/trixi-framework/Trixi.jl)
+</v-click>
 
 <img
   class="absolute -top--5% -right--3% w-40 opacity-100"
@@ -182,9 +186,10 @@ layout: cover
 
 - <em>Adaptive Earth system modelling with strongly reduced computation time <br/> for exascale-supercomputers</em>
 
-- Make legacy ESM codes exascale-ready
+- Make legacy Earth system modelling codes exascale-ready
 
 <v-click>
+<br/>
 
 ## `MESSy`: Modular Earth Submodel System
 
@@ -195,36 +200,23 @@ layout: cover
 - [`messy-interface.org`](https://messy-interface.org/)
 
 </v-click>
-<v-click>
-
-## Requirements:
-
-- Chemical process representation benefits from high resolution
-
-- ~1k chemical tracers <span id="huge">&rarr;</span> huge computational costs
-
-- AMR to the rescue!
-
-- Needs to be supported by the dynamical core!
-
-</v-click>
 
 <img
-  class="absolute -top--10% -right-2% w-60 opacity-100"
+  class="absolute -top--12% -right-2% w-60 opacity-100"
   src="/common/logos/logo_BMBF_eng.png"
   alt="Logo BMBF"
 />
 
 <img
   v-click="1"
-  class="absolute -top--38% -right--25% w-30 opacity-100"
+  class="absolute -top--48% -right--17% w-30 opacity-100"
   src="../common/logos/messy_logo.svg"
   alt="Logo MESSy"
 />
 
 <img
   v-click="1"
-  class="absolute -top--38% -right--38% w-30 opacity-100"
+  class="absolute -top--48% -right--30% w-30 opacity-100"
   src="../common/qr/qr_messy.svg"
   alt="QR-code MESSy"
 />
@@ -232,9 +224,6 @@ layout: cover
 
 
 <!--
-- Main issue: memory
-- Chemistry up to 90% of load
-
 - e. g. ECHAM, COSMO or ICON
 - idealized to fully coupled setups with full atmospheric chemistry
 -->
@@ -246,15 +235,30 @@ layout: cover
 
 # Glossary
 
-- Chemistry-climate model (CCM) = AGCM + chemistry <smallskip/>
+- Chemistry-climate model (CCM) = AGCM + chemistry
 
-  - Atmospheric global circulation model (AGCM)<br/> = physical model of atmospheric flows <smallskip/>
+<v-click>
 
-    - Dynamical core (dycore) = flow solver <smallskip/>
+- Atmospheric global circulation model (AGCM)<br/> = physical model of atmospheric flows
 
-      - Solves the "primitive equations"<br/> <span id="huge">&rarr;</span> compressible Euler equations
+</v-click>
 
-    - Physics / parametrizations = additional (unresolved) models
+<v-click>
+
+- Dynamical core (dycore) = flow solver
+
+</v-click>
+
+<v-click>
+
+- Solves the "primitive equations"<br/> <span id="huge">&rarr;</span> compressible Euler equations
+
+</v-click>
+<v-click>
+
+- Physics / parametrizations = additional (unresolved) models
+
+</v-click>
 
 
 <img
@@ -264,8 +268,12 @@ layout: cover
 />
 
 <div class="absolute -right--9% bottom-6%" v-click="1">
-<SlidevVideo autoplay loop width=220 poster="image/baroclinic_vel_mag_237871.png">
-  <source src="/common/results/heldsuarez/hs_med_surfaceT.mp4" type="video/mp4" />
+<SlidevVideo autoplay loop width=220
+  poster="/common/results/heldsuarez/hs_med_surfaceT.0104.png"
+  printPoster="/common/results/heldsuarez/hs_med_surfaceT.0104.png"
+>
+  <source src="/common/results/heldsuarez/hs_med_surfaceT.mp4"
+  type="video/mp4" />
 </SlidevVideo>
 </div>
 
@@ -273,10 +281,41 @@ layout: cover
 -->
 
 
+---
+---
+# `MESSy` cont.
+
+- Improve chemical process representation
+
+  - Higher spatial resolution
+
+  - More chemical tracers (~1k)
+
+<v-click>
+
+- Huge computational costs
+
+- Huge memory consumption
+
+</v-click>
+<v-click>
+<smallskip/>
+
+- AMR to the rescue!
+
+- Needs to be supported by the dynamical core!
+
+</v-click>
+
+<!--
+- Main issue: memory
+- Chemistry up to 90% of load
+-->
+
+
 
 ---
 ---
-
 # DG
 
 - Prototypic hyperbolic conservation law   
@@ -302,13 +341,17 @@ layout: cover
 
 - Resolve discontinuities at $\partial V$ by Riemann solvers
 
+</v-click>
+<smallskip/>
+<v-click>
+
 - Integrate ODE in time
 
 </v-click>
 
 <img
   v-click=1
-  class="absolute -top--15% -right--3% w-110 opacity-100"
+  class="absolute -top--15% -right--2% w-110 opacity-100"
   src="/common/dg.png"
   alt=""
 />
@@ -332,35 +375,297 @@ layout: cover
 
 ## Flux-differencing
 
-- $\int_{V} F(u) \cdot \nabla_x v \approx$
+- $\int_{V} F(u) \cdot \nabla_x v \approx \left< v, \mathrm{VOL} \right>$ with  
 
-- Related to split forms [@FisherCarpenter2013] [@Gassner2016]
+  $\mathrm{VOL}_i = \sum_{j} D_{i,j} f^{\mathrm{vol}}(u_i,u_j)$
+
+<img
+  class="absolute -top--20% -right--20% w-35 opacity-100"
+  src="/common/tikz/DGnodessingle.svg"
+  alt=""
+/>
+
+<v-click>
 
 - Additional conservation properties: entropy, kinetic energy, ... 
 
+- Related to split forms <span id=smaller> [@FisherCarpenter2013] [@Gassner2016] </span>
 
-## Promises
+</v-click>
+<br/>
+<v-click>
 
-- High order: gain in effective resolution
+## DG promises
 
-- High local arithmetic intensity
+- High order <span id="huge">&rarr;</span> gain in effective resolution
 
 - Robustness without artificial stabilization  
 
-- Works for different element shapes
+- Works with AMR, different element shapes
 
-- high local arithmetic intensity: ideal for massive parallelization
+- High local arithmetic intensity: good for massive parallelization
+
+</v-click>
+
+<!--
+- Inherent local conservation properties
+- Next: several aspects to highlight
+-->
+
+
+
+---
+---
+
+# Challenge: vertical direction
+
+- Earth's circumference $\,\approx 40\,000 \text{ km}$
+
+- Height of atmosphere $\approx 30 \text{ km}$
+
+<smallskip/>
+<v-click>
+
+- Flat cells
+
+</v-click>
+<smallskip/>
+<v-click>
+
+- Severe time step restrictions
+
+</v-click>
+
+<img
+  v-click=1
+  class="absolute -bottom--10% -right--10% w-105 opacity-100"
+  src="/common/slice_cube_sphere.png"
+  alt="Sketch cubed sphere resolution"
+/>
+
+<v-click>
+
+<br/>
+Remedy: implicit or IMEX schemes
+
+</v-click>
+
+<!--
+no issues with cell shape
+-->
+
+
+
+---
+---
+
+# Challenge: well-balancedness
+
+- Atmosphere at rest maintains a balanced, steady state
+
+- Hydrostatic balance: $\quad \partial_z p(z) = - \rho(z) \, g$
+
+<smallskip/>
+<v-click>
+
+- Simulation should not divert from initial state
+
+</v-click>
+
+<img
+  v-click=1
+  class="absolute -top--25% -right--8% w-110 opacity-100"
+  src="/common/results/bubble/warm_bubble_l3_p3_nopert.png"
+  alt="Sketch cubed sphere resolution"
+/>
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+<v-click>
+
+- Remedy: well-balanced schemes, e.g. <span id=smaller> [@Souza2023] </span>
+ 
+</v-click>
+
+<!--
+- column of air
+- gradient of pressure equals gravity on acting on volume
+
+- well-balanced in shallow water: lake at rest
+-->
+
+
+---
+---
+
+# Challenge: hanging nodes
+
+- Hanging nodes due to refinement
+
+- Mortar method
+
+<img
+  class="absolute -top--15% -right--5% w-70 opacity-100"
+  src="/common/tikz/DGnodeshanging1.svg"
+  alt=""
+/>
+
+<v-click>
+
+<img
+  class="absolute -top--15% -right--5% w-70 opacity-100"
+  src="/common/tikz/DGnodeshanging.svg"
+  alt=""
+/>
+
+</v-click>
+
+<v-click>
+
+- Hydrostatic balance: $\quad \partial_z p(z) = - \rho(z) \, g$  
+
+  $\Rightarrow p(z) \approx p_0 \, e^{\,c g z}$
+
+<img
+  class="absolute -bottom--40% -right--30% w-70 opacity-100"
+  src="/common/tikz/hydrostatic.svg"
+  alt=""
+/>
+
+</v-click>
+
+<v-click>
+
+- Different interpolation errors at mortar sides
+
+<img
+  class="absolute -bottom--24% -left--8% w-90 opacity-100"
+  src="/common/hanging_node_issue.png"
+  alt=""
+/>
+
+</v-click>
+
+<v-click>
+
+<br/><br/><br/><br/><br/><br/>
+
+- Remedy: split $u = \bar{u} + u'$, solve for perturbations
+
+</v-click>
 
 
 <!--
-- Telescoping sum?
-
-- Inherent local conservation properties
-
-
-- Next: several aspects to highlight
-- TODO: explain flux diff
+- virtual element, share resolution with finer element
 -->
+
+
+---
+---
+
+# Baroclinic instability
+
+- Classical test case <span id=smaller> [@JablonowskWilliamson2006] </span>
+
+- Cubed sphere mesh
+
+- 1536 cells initially
+
+- $p = 5$
+
+- Refinement based on velocity
+
+<div class="absolute right-0% top-11%">
+<SlidevVideo controls loop width=450
+  poster="/common/results/baroclinic/vel_1km_grid.0041.png"
+  printPoster="/common/results/baroclinic/vel_1km_grid.0041.png"
+  timestamp=4
+>
+  <source 
+  src="/common/results/baroclinic/baro_amr_l01_shima_vel1km_grid.mp4"
+  type="video/mp4" />
+</SlidevVideo>
+</div>
+
+<v-click>
+<br/>
+
+## Interim conclusion
+
+- DG works!
+
+- Allows for (locally) increased resolution
+
+
+</v-click>
+
+<!--
+ICON: 120 Schichten
+Oberrand in 75 km
+Zahl der Dreiecke bei 13 km Maschenweite 2.949.120
+
+Final time step:
+DOFs: 2 081 160
+ #elements:                9635
+ ├── level 1:              9256
+ └── level 0:               379
+-->
+
+
+---
+---
+# Further aspects
+
+- AMR criteria
+
+<v-click>
+
+<smallskip/>
+
+- Real data, validation
+
+</v-click>
+
+<v-click>
+
+<smallskip/>
+
+- Fortan-Julia interface: `libtrixi`
+
+- Fully coupled simulations
+
+</v-click>
+
+<v-click>
+
+<smallskip/>
+
+- Parallel performance, GPU porting
+
+</v-click>
+
+<!--
+- objective and automatic adaptation criteria as provided by Multiwave
+- Moist equations
+- AMR and performance
+
+- DG not worth the effort
+- "AMR not plannable, too risky"
+- chained intertwinned simulation rus
+- schedule, lock-step
+--> 
+
+
+---
+layout: biblio
+biblio:
+  item_per_page: 5
+---
+
+
+---
+layout: end
+---
 
 
 
@@ -369,18 +674,18 @@ layout: cover
 
 # Have: high effective resolution
 
+<br/>
 <div class="row">
-  <div id=largenumber class="column" style="text-align: center">
+  <div class="column" style="text-align: center">
 <img
   class="relative opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_l3_p3.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=3, \; 32\,768 \text{ DOFs}$
-</div>
+$\;p=3, \; 32\,768 \text{ DOFs}$
+
   </div>
   <div class="column" style="text-align: center">
   <img
@@ -389,10 +694,8 @@ $p=3, \; 32\,768 \text{ DOFs}$
   src="/common/results/bubble/warm_bubble_l4_p1.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=1, \; 32\,768 \text{ DOFs}$
-</div>
+$\;p=1, \; 32\,768 \text{ DOFs}$
   </div>
 </div>
  
@@ -403,18 +706,17 @@ $p=1, \; 32\,768 \text{ DOFs}$
 
 # Have: high effective resolution cont.
 
+<br/>
 <div class="row">
-  <div id=largenumber class="column" style="text-align: center">
+  <div class="column" style="text-align: center">
 <img
   class="relative opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_l3_p3.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=3, \; 32\,768 \text{ DOFs}$
-</div>
+$\;p=3, \; 32\,768 \text{ DOFs}$
   </div>
   <div class="column" style="text-align: center">
   <img
@@ -423,10 +725,8 @@ $p=3, \; 32\,768 \text{ DOFs}$
   src="/common/results/bubble/warm_bubble_l5_p1_cfl1.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=1, \; 131\,072 \text{ DOFs}$
-</div>
+$\;p=1, \; 131\,072 \text{ DOFs}$
   </div>
 </div>
 
@@ -437,18 +737,17 @@ $p=1, \; 131\,072 \text{ DOFs}$
 
 # Have: high effective resolution cont.
 
+<br/>
 <div class="row">
-  <div id=largenumber class="column" style="text-align: center">
+  <div  class="column" style="text-align: center">
 <img
   class="relative opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_l3_p3.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=3, \; 32\,768 \text{ DOFs}$
-</div>
+$\;p=3, \; 32\,768 \text{ DOFs}$
   </div>
   <div class="column" style="text-align: center">
   <img
@@ -457,10 +756,8 @@ $p=3, \; 32\,768 \text{ DOFs}$
   src="/common/results/bubble/warm_bubble_l6_p1_cfl1.png"
   alt=""
 />
-<div style="margin-top: -3rem">
 
-$p=1, \; 524\,288 \text{ DOFs}$
-</div>
+$\;p=1, \; 524\,288 \text{ DOFs}$
   </div>
 </div>
 
@@ -470,18 +767,17 @@ $p=1, \; 524\,288 \text{ DOFs}$
 
 # Have: entropy conservation
 
+<br/>
 <div class="row">
-  <div id=largenumber class="column" style="text-align: center">
+  <div class="column" style="text-align: center">
 <img
   class="relative opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_l3_p3.png"
   alt=""
 />
-<div style="margin-top: -1.2rem">
 
-Flux differencing, Ranocha flux <Cite bref="Ranocha2018Thesis"/>
-</div>
+Flux differencing, Ranocha flux <span id=smaller>[@Ranocha2018Thesis]</span>
   </div>
   <div class="column" style="text-align: center">
   <img
@@ -490,10 +786,8 @@ Flux differencing, Ranocha flux <Cite bref="Ranocha2018Thesis"/>
   src="/common/results/bubble/warm_bubble_l3_p3_weak.png"
   alt=""
 />
-<div style="margin-top: -1.2rem">
 
 Classical weak form
-</div>
   </div>
 </div>
 
@@ -505,224 +799,99 @@ Classical weak form
 
 # Have: AMR
 
+<br/>
 <div class="row">
-  <div id=largenumber class="column" style="text-align: center">
+  <div class="column" style="text-align: center">
 <img
   class="relative opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_l3_p3.png"
   alt=""
 />
-<div style="margin-top: -3rem">
+<div style="margin-top: -0.6rem">
 
-uniform, $p=3, \; 32\,768 \text{ DOFs}$
+uniform, $\;p=3, \; 32\,768 \text{ DOFs}$
 </div>
   </div>
   <div class="column" style="text-align: center">
   <img
-  class="relative opacity-100"
+  class="absolute -top--27 -right--16.2  w-105.8 opacity-100"
   style="margin:auto" 
   src="/common/results/bubble/warm_bubble_amr.png"
   alt=""
-  />
-  <img
-  class="relative opacity-100"
-  v-click=2
-  style="margin:auto" 
-  src="/common/results/bubble/warm_bubble_amr.png"
-  alt=""
-  />
-<div style="margin-top: -3rem">
+/>
+<div style="margin-top: 14rem">
 
-AMR, $p=3, \; 6176 \text{ DOFs}$
+AMR, $\;p=3, \; 6176 \text{ DOFs}$
 </div>
   </div>
 </div>
 
-<!--
-TODO
--->
-
-
----
----
-
-# Challenge: vertical direction
-
-- $U \approx 40\,000 \text{ km}$ 
-- $H \approx 30 \text{ km}
-
-<smallskip/>
-
-- Severe time step restrictions
-
 <img
-  class="absolute -bottom--10% -right--20% w-100 opacity-100"
-  src="/common/results/bubble/warm_bubble_l3_p3_nopert.png"
-  alt="Sketch cubed sphere resolution"
-/>
-
-
-
----
----
-
-# Challenge: well-balancedness
-
-- Atmosphere at rest maintains a balanced steady state
-
-- $\partial_z p = - \rho g$
-
-- Simulation should not divert from initial state
-
-<smallskip/>
-
-- Remedy: well-balanced schemes, e.g. [@Souza2023]
-
-<img
-  class="absolute -bottom--10% -right--20% w-100 opacity-100"
-  src="/common/slice_cube_sphere.png"
-  alt="Sketch cubed sphere resolution"
-/>
-
-<!---
--->
-
-
----
----
-
-# Challenge: Hanging nodes
-
-$$
-\begin{aligned}
-&\partial_z p = - \rho g \\
-&\Rightarrow p(z) \approx p_0 e^{c \, g \, z}
-\end{aligned}
-$$
-
-
-<smallskip/>
-
-Remedy: split $q = \bar{q} + q'$, solve for perturbations
-
-
-<img
-  class="absolute -bottom--10% -right--20% w-60 opacity-100"
-  src="/common/tikz/DGnodes.svg"
+  class="absolute -top--27 -right--16.2  w-105.8 opacity-100"
+  v-click=1
+  style="margin:auto" 
+  src="/common/results/bubble/warm_bubble_amr_mesh.png"
   alt=""
-/>
-
-<img
-  class="absolute -bottom--40% -right--20% w-60 opacity-100"
-  src="/common/tikz/hydrostatic.svg"
-  alt=""
-/>
-
-
-<img
-  class="absolute -bottom--10% -right--20% w-60 opacity-100"
-  src="/common/hanging_node_issue.png"
-  alt=""
-/>
-
+  />
 
 <!--
-- hydrostatic equation Wikipedia
-TODO: hanging DG node
-TODO: Souza
 -->
 
 
 ---
 ---
 
-# Baroclinic instability
+# `Trixi.jl` cont.
 
-- Classical test case [@JablonowskWilliamson2006]
+Configure simulations through code (*elixir*) <br/>
 
-- Cubed sphere mesh
+```julia
+using Trixi
+using OrdinaryDiffEq
 
-- $p = 3, \; 98\, 304 \text{ cells}$
-
-- Refinement base on velocity
-
-<smallskip/>
-
-<v-click>
-
-## Preliminary assessment
-
-- DG works!
-
-- Allows to (locally) increase resolution
-
-<div class="absolute right-0% top-10%">
-<SlidevVideo autoplay loop width=400>
-  <source 
-  src="/common/results/baroclinic/baro_amr_l01_shima_vel1km_grid.mp4"
-  poster="/common/results/baroclinic/vel_1km_grid.0041.png"
-  type="video/mp4" />
-</SlidevVideo>
-</div>
-
-</v-click>
+equations = CompressibleEulerEquations2D(gamma = 1.4)
+solver = DGSEM(polydeg = 3, surface_flux = flux_lax_friedrichs)
+mesh = T8codeMesh((8, 8), (-1.0, -1.0), (1.0, 1.0), polydeg = 3)
+my_init(x, t, equations) = ...
+semi = SemidiscretizationHyperbolic(mesh, equations, my_init, solver)
+tspan = (0.0, 1.0)
+ode = semidiscretize(semi, tspan)
+# OrdinaryDiffEq.jl
+sol = solve(ode, ...)
+```
 
 <!--
-ICON: 120 Schichten
-Oberrand in 75 km
-Zahl der Dreiecke bei 13 km Maschenweite 2.949.120
-
-benefits in (locally increased) resolution
+Trixi as a library
 -->
 
 
 ---
 ---
-# Further aspects
 
-- Fortan-Julia interface: `libtrixi`
+# `TrixiAtmo.jl`
 
-- Parallel performance
+Subpackage focused on atmospheric modeling
+<br/><br/>
 
-- GPU porting
 
-- Moist equations
+1. General concepts
+    - Seperation of horizonal and vertical discretization
+    - HEVI
+    - Prism elements
 
-- AMR criteria
+2. PDEs on surfaces
+    - Covariant advection / shallow water solver
 
-- Validation
-
-- Real data, required tools
-
-- Fully couples simulations
-
-- AMR and performance
+3. Moist Euler equations
+    - Cloud microphysics
+    - Rain
 
 <!--
-TODO: QR Juliacon talk?
-
-- DG not worth the effort
-- "AMR not plannable, too risky"
-- chained intertwinned simulation rus
-- schedule, lock-step
-
-- objective and automatic adaptation criteria as provided by Multiwave
---> 
-
-
----
-layout: biblio
-biblio:
-  item_per_page: 5
----
-
-
-
----
-layout: end
----
-
+(simplified) ICON
+Perturbation approach
+Total energy including geopotential \\[3pt]
+-->
 
 
 ---
@@ -753,8 +922,6 @@ Make `Trixi.jl` available for legacy codes
 - transfer between DG nodes and FV elements via nested grids\\[3pt]
 - Test case: tracer transport with Radon decay chain (\texttt{MESSy} \texttt{DRADON} 
 -->
-
-
 
 
 ---
@@ -791,37 +958,6 @@ Make `Trixi.jl` available for legacy codes
 </div>
 
 
-
----
----
-
-# Lessons learned so far
-
-- Well balancedness
-- Non conforming elments vs. hydrostic balance
-- Need for regridding tools
-
-
-<img
-  class="absolute w-70 right-35% bottom-15%"
-  src="/common/results/heldsuarez/hs_velmag.png"
-  alt=""
-/>
-<img
-  class="absolute w-70 right-5% bottom-15%"
-  src="/common/results/heldsuarez/hs_fail.png"
-  alt=""
-/>
-
-
-
-
-
-
-
-
-
-
 ---
 ---
 
@@ -846,88 +982,7 @@ Make `Trixi.jl` available for legacy codes
 />
 
 
-
 ---
----
-
-# `Trixi.jl` cont.
-
-Configure simulations through code (*elixir*) <br/>
-
-```julia
-using Trixi
-using OrdinaryDiffEq
-
-equations = CompressibleEulerEquations2D(gamma = 1.4)
-solver = DGSEM(polydeg = 3, surface_flux = flux_lax_friedrichs)
-mesh = T8codeMesh((8, 8), (-1.0, -1.0), (1.0, 1.0), polydeg = 3)
-my_init(x, t, equations) = ...
-semi = SemidiscretizationHyperbolic(mesh, equations, my_init, solver)
-tspan = (0.0, 1.0)
-ode = semidiscretize(semi, tspan)
-# OrdinaryDiffEq.jl
-sol = solve(ode, ...)
-```
-
-<!--
-Trixi as a library
--->
-
-
----
----
-
-# Rapid prototyping
-
-Why Julia
-
-modern high-level programming language
-solves two-language problem: easy and fast
-
-rapid prototyping capability
-lots of ready-to-use packages
-
-performance of Trixi.jl on par with classical codes!
-performance portability (GPUs)
-
-
-
-
-Example: Held Suarez forcing
-An alternative DSL? 
-
-
-
-
----
----
-
-# `TrixiAtmo.jl`
-
-Subpackage focused on atmospheric modeling
-<br/><br/>
-
-
-1. General concepts
-    - Seperation of horizonal and vertical discretization
-    - HEVI
-    - Prism elements
-
-2. PDEs on surfaces
-    - Covariant advection / shallow water solver
-
-3. Moist Euler equations
-    - Cloud microphysics
-    - Rain
-
-<!--
-(simplified) ICON
-Perturbation approach
-Total energy including geopotential \\[3pt]
--->
-
-
-
 ---
 
 # GPU offloading
@@ -953,6 +1008,7 @@ Total energy including geopotential \\[3pt]
     ```
 
 
+---
 ---
 
 # `KernelAbstractions.jl`
@@ -980,54 +1036,3 @@ end
     weak_form_kernel_element!(du, u, element,..., solver, cache)
 end
 ```
-
-
----
----
-
-# Evaluating GPU performance
-
-- ESiWACE3 service
-
-- JUREAP (JUPITER Research and Early Access Program)
-
-
----
----
-
-# Project *ADAPTEX*
-
-
-
-- Exascale ready framework for CFD
-
-- With AMR, on CPUs and GPUs
-
-- Make legacy ESM codes exascale-ready
-
-- Keep original code
-
-- Add new features written in a high-level language
-
-- Do not sacrifice performance
-
-- Support heterogeneous HPC environments
-
-<img
-  class="absolute -bottom--8% -right--1% w-80 opacity-100"
-  src="/common/logos/logo_EU.png"
-  alt="Logo EU"
-/>
-<img
-  class="absolute -bottom--20% -right-5% w-80 opacity-100"
-  src="/common/logos/logo_BMBF_eng.png"
-  alt="Logo BMBF"
-/>
-
-<!--
-- performance portability
-- heterogenous compute environments
-- `Trixi.jl` as an alternative dynamical core
--->
-
-
